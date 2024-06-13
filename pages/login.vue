@@ -70,6 +70,9 @@
     middleware: 'auth'
   })
 
+  onMounted(() => {
+    store.faConfirmation = false
+  })
 
   const showPass = ref(false);
 

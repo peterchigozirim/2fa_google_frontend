@@ -6,6 +6,7 @@ export const userStore = defineStore('user', ()=>{
   const loader = ref(false);
   const msg = ref(null);
   const toast = useToast()
+  const faConfirmation = ref(false)
   
   const isLoginedIn = computed(() => !!user.value)
 
@@ -83,9 +84,7 @@ export const userStore = defineStore('user', ()=>{
 
   const handleUser = async()=>{
     const {data, error, status, pending} = await useApi('api/user')
-    
     if (error.value) {
-      user.value = null
       toast.add({
         id: 'error',
         title: 'Session Expire',
@@ -94,12 +93,11 @@ export const userStore = defineStore('user', ()=>{
         icon: 'ph:warning-diamond-fill',
         timeout: 3000,
       })
-      if(error.value.statusCode === 401 || error.value.statusCode === 405) {
-        return resetUser();
-      }
-      return navigateTo('/login')
+      return resetUser();
+      // return navigateTo('/login')
 
     }
+    console.log(error.value);
     if (status.value ==='success') {
       user.value = data.value
     }
@@ -187,11 +185,11 @@ export const userStore = defineStore('user', ()=>{
 
   const resetUser = async () => {
     
-    const token =  useCookie("XSRF-TOKEN");
+    let token =  useCookie("XSRF-TOKEN");
     window.localStorage.removeItem('token')
-    token.value = null
+    token = null
     user.value = null
   }
 
-  return{ user, isLoginedIn, loader, handleLogin, handleRegister, handleUser, handlegetOtp, handleForgetPassword, handleLogout }
+  return{ user, isLoginedIn, loader, faConfirmation, handleLogin, handleRegister, handleUser, handlegetOtp, handleForgetPassword, handleLogout }
 }, {persist: true} )

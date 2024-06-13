@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full  bg-yellow-50 dark:bg-black dark:text-white transition-all duration-5343A3800">
+  <div class="min-h-full  bg-emerald-50 dark:bg-black dark:text-white transition-all duration-5343A3800">
     <div class="flex">
       <UtilitySideNav
         :class="openNav ? 'left-0' : '-left-full'"
@@ -68,7 +68,7 @@
     isOpen.value = false
     await store.handleLogout()
   }
-  onBeforeMount(() => {
+  onMounted(() => {
     store.handleUser()
   })
 </script>

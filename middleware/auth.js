@@ -15,6 +15,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
         }
     }
     if (store.isLoginedIn) {
+        if (to.path == '/dashboard/verify-2fa'&& store.faConfirmation) {
+            return navigateTo('/dashboard')
+        }
+        if (to.path !== '/dashboard/verify-2fa' && !!store.user.google2fa_enabled && store.faConfirmation === false) {
+            return navigateTo('/dashboard/verify-2fa')
+        }
         if (to.path === '/login') {
             return navigateTo('/dashboard')
         }

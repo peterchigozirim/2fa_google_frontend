@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     '@vee-validate/nuxt',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxt/image'
   ],
   veeValidate: {
     // disable or enable auto imports
